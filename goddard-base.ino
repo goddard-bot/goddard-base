@@ -43,6 +43,10 @@ void loop() {
       uint8_t inByte = Serial.read();
       if(inByte == 'B') {
           Serial.readBytes(&frame[1],4);
+          if(frame[1] < '0' || frame[1] > '9') break;
+          if(frame[2] < '0' || frame[2] > '9') break;
+          if(frame[3] < '0' || frame[3] > '9') break;
+          if(frame[4] < 'A' || frame[4] > 'Z' || frame[4] == 'B') break;
           //if the send fails let the user know over serial monitor
           Serial.write((char*)frame);
           if (wirelessSPI.write( frame, 5 )){
